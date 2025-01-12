@@ -1,7 +1,7 @@
 package com.project.QuizApp.Service;
 
 import com.project.QuizApp.DAO.QuestionDAO;
-import com.project.QuizApp.Question;
+import com.project.QuizApp.Model.Question;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

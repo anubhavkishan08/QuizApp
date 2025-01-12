@@ -1,6 +1,6 @@
 package com.project.QuizApp.Controller;
 
-import com.project.QuizApp.Question;
+import com.project.QuizApp.Model.Question;
 import com.project.QuizApp.Service.QuestionService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
