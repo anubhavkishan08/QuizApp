@@ -1,6 +1,7 @@
 package com.project.QuizApp.Controller;
 
 import com.project.QuizApp.DTO.QuestionDTO;
+import com.project.QuizApp.DTO.Response;
 import com.project.QuizApp.Model.Question;
 import com.project.QuizApp.Service.QuizService;
 import org.springframework.http.HttpStatus;
@@ -29,5 +30,10 @@ public class QuizController {
     @GetMapping("/get/{id}")
     public ResponseEntity<List<QuestionDTO>> getQuizQuestions(@PathVariable int id){
         return quizService.getQuizQuestions(id);
+    }
+
+    @PostMapping("submit/{id}")
+    public ResponseEntity<Integer> checkQuizAnswers(@PathVariable int id, @RequestBody List<Response> response){
+        return quizService.checkQuizAnswers(id,response);
     }
 }

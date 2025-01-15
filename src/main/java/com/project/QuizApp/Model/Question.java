@@ -18,10 +18,11 @@ public class Question {
     private String option3;
     private String option4;
     private String rightAnswer;
+    private String rightOption;
     private String difficultyLevel;
     private String category;
 
-    public Question(Integer id, String questionTitle, String option1, String option2, String option3, String option4, String rightAnswer, String difficultyLevel, String category) {
+    public Question(Integer id, String questionTitle, String option1, String option2, String option3, String option4, String rightAnswer,String rightOption, String difficultyLevel, String category) {
         this.id = id;
         this.questionTitle = questionTitle;
         this.option1 = option1;
@@ -29,6 +30,7 @@ public class Question {
         this.option3 = option3;
         this.option4 = option4;
         this.rightAnswer = rightAnswer;
+        this.rightOption=rightOption;
         this.difficultyLevel = difficultyLevel;
         this.category = category;
     }
@@ -108,6 +110,14 @@ public class Question {
         this.category = category;
     }
 
+    public String getRightOption() {
+        return rightOption;
+    }
+
+    public void setRightOption(String rightOption) {
+        this.rightOption = rightOption;
+    }
+
     @Override
     public String toString() {
         return "Question{" +
@@ -118,6 +128,7 @@ public class Question {
                 ", option3='" + option3 + '\'' +
                 ", option4='" + option4 + '\'' +
                 ", rightAnswer='" + rightAnswer + '\'' +
+                ", rightOption='" + rightOption + '\'' +
                 ", difficultyLevel='" + difficultyLevel + '\'' +
                 ", category='" + category + '\'' +
                 '}';

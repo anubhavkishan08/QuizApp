@@ -3,6 +3,7 @@ package com.project.QuizApp.Service;
 import com.project.QuizApp.DAO.QuestionDAO;
 import com.project.QuizApp.DAO.QuizDAO;
 import com.project.QuizApp.DTO.QuestionDTO;
+import com.project.QuizApp.DTO.Response;
 import com.project.QuizApp.Model.Question;
 import com.project.QuizApp.Model.Quiz;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 @Service
 public class QuizService {
@@ -48,4 +50,43 @@ public class QuizService {
         }
         return new ResponseEntity<>(questionForUser,HttpStatus.OK);
     }
+
+    public ResponseEntity<Integer> checkQuizAnswers(int id, List<Response> responses) {
+        // Find the quiz by id
+        Optional<Quiz> quizOptional = quizDAO.findById(id);
+
+        // If quiz is not found, return a not found response
+        if (!quizOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        // Get the list of questions from the quiz
+        List<Question> questions = quizOptional.get().getQuestionList();
+
+        // Ensure the responses list matches the number of questions
+        if (responses.size() != questions.size()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);  // In case of mismatch
+        }
+
+        // Use streams to count correct answers
+        long correctAnswers = IntStream.range(0, responses.size())
+                .filter(i -> responses.get(i).getResponse().equals(questions.get(i).getRightOption()))
+                .count();
+
+        // Return the number of correct answers
+        return new ResponseEntity<>(Math.toIntExact(correctAnswers), HttpStatus.OK);
+    }
+
+
+//    public ResponseEntity<Integer> checkQuizAnswers(int id, List<Response> response) {
+//        Optional<Quiz> quiz =quizDAO.findById(id);
+//        List<Question> questions=quiz.get().getQuestionList();
+//        int right=0,i=0;
+//        for(Response r:response){
+//            if(r.getResponse().equals(questions.get(i).getRightOption()))
+//                right++;
+//            i++;
+//        }
+//        return new ResponseEntity<>(right,HttpStatus.OK);
+//    }
 }
